@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { addOrUpdateCart } from "../api/firebase";
 import Button from "../components/ui/Button";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export default function ProductDetail() {
   const {
@@ -24,16 +26,40 @@ export default function ProductDetail() {
     setSelected(e.target.value);
   };
 
+  //mutaion 사용하기 위해 useMutation함수 만듦
+  const queryClient = useQueryClient();
+  const addCart = useMutation(
+    ({ userId, product }) => addOrUpdateCart(userId, product),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    }
+  );
+
   const handleClick = () => {
     //장바구니에 추가
     const product = { id, image, title, price, option: selected, qty: 1 };
-    addOrUpdateCart(userId, product) //
-      .then(() => {
-        setSuccess("✅상품이 장바구니에 추가되었습니다.");
-        setTimeout(() => {
-          setSuccess(null);
-        }, 4000);
-      });
+    // mutation 사용
+    addCart.mutate(
+      { userId, product },
+      {
+        onSuccess: () => {
+          setSuccess("✅상품이 장바구니에 추가되었습니다.");
+          setTimeout(() => {
+            setSuccess(null);
+          }, 4000);
+        },
+      }
+    );
+    // mutaion사용전 직접 업데이트한 코드
+    // addOrUpdateCart(userId, product) //
+    //   .then(() => {
+    //     setSuccess("✅상품이 장바구니에 추가되었습니다.");
+    //     setTimeout(() => {
+    //       setSuccess(null);
+    //     }, 4000);
+    //   });
   };
 
   return (

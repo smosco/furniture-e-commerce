@@ -14,6 +14,7 @@ export default function MyCart() {
   const {
     user: { uid },
   } = useAuthContext();
+
   const { isLoading, data: cartItems } = useQuery(["cart"], () => getCart(uid));
   const hasCartItems = cartItems && cartItems.length > 0;
   const totalPrice =

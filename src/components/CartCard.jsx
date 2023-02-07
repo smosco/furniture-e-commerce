@@ -2,6 +2,8 @@ import React from "react";
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { addOrUpdateCart, removeFromCart } from "../api/firebase";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ICON_CLASS =
   "transition-all cursor-pointer hover:text-brand hover:scale-105";
@@ -11,17 +13,42 @@ export default function CartCard({
   cartItem,
   cartItem: { id, title, price, image, qty, option },
 }) {
+  //mutation사용하기 위해 mutation함수 만듦
+  const queryClient = useQueryClient();
+  const addCart = useMutation(
+    ({ uid, cartItem }) => addOrUpdateCart(uid, cartItem),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    }
+  );
+  const removeCart = useMutation(({ uid, id }) => removeFromCart(uid, id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+    },
+  });
+
   const handlePlus = () => {
-    addOrUpdateCart(uid, { ...cartItem, qty: qty + 1 });
+    //mutation 사용
+    addCart.mutate({ uid, cartItem: { ...cartItem, qty: qty + 1 } });
+    //mutation 사용전 직접 업데이트한 코드
+    //addOrUpdateCart(uid, { ...cartItem, qty: qty + 1 });
   };
 
   const handleMinus = () => {
     if (qty < 2) return;
-    addOrUpdateCart(uid, { ...cartItem, qty: qty - 1 });
+    //mutation 사용
+    addCart.mutate({ uid, cartItem: { ...cartItem, qty: qty - 1 } });
+    //mutation 사용전 직접 업데이트한 코드
+    //addOrUpdateCart(uid, { ...cartItem, qty: qty - 1 });
   };
 
   const handleDelete = () => {
-    removeFromCart(uid, id);
+    //mutation사용
+    removeCart.mutate({ uid, id });
+    //mutation 사용전 직접 삭제 코드
+    //removeFromCart(uid, id);
   };
 
   return (
