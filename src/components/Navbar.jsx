@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useAuthContext } from "../contexts/AuthContext";
 import User from "./User";
 import Button from "./ui/Button";
+
+import CartStatus from "./CartStatus";
 
 export default function Navbar() {
   //Auth를 context로 만들어 글로벌하게 사용한다.
@@ -37,7 +39,11 @@ export default function Navbar() {
 
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
-        {user && <Link to="/cart">Cart</Link>}
+        {user && (
+          <Link className="relative" to="/cart">
+            <CartStatus />
+          </Link>
+        )}
         {user && user.isAdmin && (
           <Link to="/products/new" className="text-2xl">
             <AiOutlineEdit />

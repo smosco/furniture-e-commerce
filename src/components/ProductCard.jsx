@@ -1,11 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({
-  product: { title, image, price, category },
+  product,
+  product: { id, title, image, price, category },
 }) {
   //const { title, image, price, category } = product;
+  const navigate = useNavigate();
   return (
-    <li className="rounded-lg shadow-md overflow-hidden cursor-pointer">
+    <li
+      onClick={() => {
+        navigate(`/product/${id}`, { state: { product } });
+      }}
+      className="rounded-lg shadow-md overflow-hidden cursor-pointer"
+    >
       <img className="w-full" src={image} alt={title} />
       <div className="mt-2 px-2 text-lg flex flex-col justify-between items-">
         <h3 className="truncate">{title}</h3>

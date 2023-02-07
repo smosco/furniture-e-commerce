@@ -25,7 +25,7 @@ export default function NewProducts() {
     //Firebase에 새로운 제품을 추가함
     uploadImage(file) //
       .then((url) => {
-        console.log(url);
+        //console.log(url);
         addNewProduct(product, url) //
           .then(() => {
             setSuccess("성공적으로 제품이 추가되었습니다.");
