@@ -14,7 +14,7 @@ export default function ProductCard({
       }}
       className="rounded-lg shadow-md overflow-hidden cursor-pointer"
     >
-      <img className="w-full" src={image} alt={title} />
+      <img className="w-full aspect-square" src={image} alt={title} />
       <div className="mt-2 px-2 text-lg flex flex-col justify-between items-">
         <h3 className="truncate">{title}</h3>
         <p className="text-sm text-gray-600">{category}</p>

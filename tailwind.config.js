@@ -4,10 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: "#f96162",
+        "ore-red": "#f05b47",
+        "ore-color": "#00FF7F",
+        "ore-black": "#17171b",
+        "ore-button": "#222532",
+        "ore-brand": "#007B01",
       },
       backgroundImage: {
-        banner: `url("./images/banner.jpg")`,
+        banner: `url("./images/banner1.jpg")`,
       },
     },
   },

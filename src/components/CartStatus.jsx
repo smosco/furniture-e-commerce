@@ -16,7 +16,7 @@ export default function CartStatus() {
       <AiOutlineShoppingCart className="text-4xl" />
       {cartItems && (
         <p
-          className="w-6 h-6 text-center bg-brand text-white font-bold//
+          className="w-6 h-6 text-center bg-ore-brand text-white font-bold//
          rounded-full absolute -top-2 -right-2"
         >
           {cartItems.length}

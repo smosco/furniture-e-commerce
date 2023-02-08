@@ -4,10 +4,12 @@
 
 body {
   @apply flex flex-col items-center;
+  background-color: #f0f0f0;
 }
 
 #root {
-  @apply w-full max-w-screen-2xl;
+  @apply w-full;
+  /* @apply w-full max-w-screen-2xl; */
 }
 
 input {
