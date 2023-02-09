@@ -27,18 +27,18 @@ const Slider = () => {
         <img className="w-screen h-full object-cover" src={data[1]} alt="" />
         <img className="w-screen h-full object-cover" src={data[2]} alt="" />
       </div>
-      <div className="icons flex absolute left-0 right-0 bottom-24 gap-4">
+      <div className="icons flex absolute left-2 right-2 bottom-24 gap-4">
         <div
-          className="icon w-12 h-12 border-b flex justify-center items-center cursor-pointer"
+          className="icon w-12 h-12 flex justify-center items-center cursor-pointer bg-[#f0f0f0] rounded-lg"
           onClick={prevSlide}
         >
-          <SlArrowLeft className="text-gray-100 font-bold text-3xl" />
+          <SlArrowLeft className="text-gray-600 font-bold text-3xl" />
         </div>
         <div
-          className="icon w-12 h-12 border-b flex justify-center items-center cursor-pointer"
+          className="icon w-12 h-12 flex justify-center items-center cursor-pointer bg-[#f0f0f0] rounded-lg"
           onClick={nextSlide}
         >
-          <SlArrowRight className="text-gray-100 font-bold text-3xl" />
+          <SlArrowRight className="text-gray-600 font-bold text-3xl" />
         </div>
       </div>
     </div>

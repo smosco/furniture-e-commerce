@@ -19,7 +19,7 @@ export default function AllProducts() {
                 setCategory(category);
               }}
               key={category}
-              className="bg-gray-200 rounded-2xl py-2 px-6 cursor-pointer shrink-0"
+              className="rounded-2xl bg-gray-200 py-2 px-6 cursor-pointer shrink-0"
             >
               {category}
             </li>

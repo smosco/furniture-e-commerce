@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Slider />
-      <Banner />
+      {/* <Banner /> */}
       <Products />
     </>
   );
