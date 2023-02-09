@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiShoppingBag } from "react-icons/fi";
+//import { FiShoppingBag } from "react-icons/fi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useAuthContext } from "../contexts/AuthContext";
 import User from "./User";
 import Button from "./ui/Button";
 
 import CartStatus from "./CartStatus";
+import WishStatus from "./WishStatus";
 
 export default function Navbar() {
   //Auth를 context로 만들어 글로벌하게 사용한다.
@@ -31,14 +32,19 @@ export default function Navbar() {
   // };
 
   return (
-    <header className="flex justify-between border-b border-gray-300 p-2">
+    <header className="flex justify-between border-b border-gray-300 py-4 px-6">
       <Link to="/" className="flex items-center text-4xl text-black">
-        <FiShoppingBag />
-        <h1>Shoppy</h1>
+        {/* <FiShoppingBag /> */}
+        <h1 className="text-2xl">ORE & FURNI</h1>
       </Link>
 
       <nav className="flex items-center gap-4 font-semibold">
-        <Link to="/products">Products</Link>
+        <Link to="/products">SHOP</Link>
+        {user && (
+          <Link className="relative" to="/wish">
+            <WishStatus />
+          </Link>
+        )}
         {user && (
           <Link className="relative" to="/cart">
             <CartStatus />

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Heart from "./Heart";
 
 export default function ProductCard({
   product,
@@ -8,18 +9,23 @@ export default function ProductCard({
   //const { title, image, price, category } = product;
   const navigate = useNavigate();
   return (
-    <li
-      onClick={() => {
-        navigate(`/product/${id}`, { state: { product } });
-      }}
-      className="rounded-lg shadow-md overflow-hidden cursor-pointer"
-    >
-      <img className="w-full aspect-square" src={image} alt={title} />
-      <div className="mt-2 px-2 text-lg flex flex-col justify-between items-">
-        <h3 className="truncate">{title}</h3>
-        <p className="text-sm text-gray-600">{category}</p>
-      </div>
-      <p className="my-2 px-2 text-lg">{`$${price}`}</p>
-    </li>
+    <div className="relative">
+      <Heart product={product} />
+      <li
+        onClick={() => {
+          navigate(`/product/${id}`, { state: { product } });
+        }}
+        className="rounded-3xl shadow-md overflow-hidden cursor-pointer"
+      >
+        <img className="w-full aspect-square" src={image} alt={title} />
+        <div className="flex flex-col justify-between px-4 py-2 gap-2">
+          <div className="text-lg flex flex-col justify-between">
+            <p className="text-sm text-gray-400">{category}</p>
+            <p className="extrabold text-ore-black truncate">{title}</p>
+          </div>
+          <p className="mb-4 text-2xl text-ore-black font-semibold">{`$${price}`}</p>
+        </div>
+      </li>
+    </div>
   );
 }

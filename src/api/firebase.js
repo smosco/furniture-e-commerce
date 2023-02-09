@@ -110,3 +110,23 @@ export async function getCart(userId) {
 export async function removeFromCart(userId, productId) {
   return remove(ref(db, `cart/${userId}/${productId}`));
 }
+
+export async function addOrUpdateWish(userId, product) {
+  return set(ref(db, `/wish/${userId}/${product.id}`), product);
+}
+
+export async function getWish(userId) {
+  return get(ref(db, `/wish/${userId}`)) //
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const wishItems = Object.values(snapshot.val());
+        return wishItems;
+      }
+      return [];
+    })
+    .catch(console.error);
+}
+
+export async function removeFromWish(userId, productId) {
+  return remove(ref(db, `wish/${userId}/${productId}`));
+}

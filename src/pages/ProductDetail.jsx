@@ -60,71 +60,100 @@ export default function ProductDetail() {
     };
 
     return (
-      <>
-        <p className="mx-12 mt-4 text-gray-700 ">{category}</p>
-        <section className="flex flex-col md:flex-row p-4">
-          <img className="w-full px-4 basis-7/12" src={image} alt={title} />
-          <div className="w-full basis-5/12 flex flex-col p-4">
-            <h2 className="text-3xl font-bold py-2">{title}</h2>
-            <p className="text-2xl font-bold py-2 border-b border-gray-400">
-              ${price}
-            </p>
-            <p className="py-4 text-lg">{description}</p>
-            <div className="flex items-center">
-              <label className="font-bold" htmlFor="select">
-                옵션:
-              </label>
-              <select
-                id="select"
-                className="p-2 m-4 flex-1 border-2 border-dashed border-brand outline-none"
-                onChange={handleSelect}
-                value={selected}
-              >
-                {options.map((option, index) => (
-                  <option key={index}>{option}</option>
-                ))}
-              </select>
+      <div className="">
+        <div className="mx-8 md:mx-10">
+          <p className="my-4 text-gray-500">{category}</p>
+          <section className="flex flex-col md:flex-row md:justify-between md:mx-auto">
+            <div className="rounded-xl overflow-hidden ">
+              <img
+                className="w-full basis-7/12 aspect-square"
+                src={image}
+                alt={title}
+              />
             </div>
-            <Button text="장바구니에 추가" onClick={handleClick} />
-            {success && <p className="text-center">{success}</p>}
-          </div>
-        </section>
-      </>
+            <div className="w-full basis-5/12 flex flex-col md:px-8 mt-4 md:mt-0">
+              <p className="text-2xl py-2 mb-2">{title}</p>
+              <p className="text-xl font-bold pb-10 border-b border-gray-300">
+                ${price}
+              </p>
+              <div className="flex flex-col py-8 gap-6 border-b border-gray-300">
+                <div>
+                  <label htmlFor="select">옵션 :</label>
+                  <select
+                    id="select"
+                    className="p-2 ml-2 border-2 outline-none"
+                    onChange={handleSelect}
+                    value={selected}
+                  >
+                    {options.map((option, index) => (
+                      <option key={index}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Button
+                    text="장바구니에 추가"
+                    onClick={handleClick}
+                    className="w-full py-4 md:w-auto md:px-10"
+                  />
+                </div>
+              </div>
+              <p className="py-4 text-lg ">{description}</p>
+              {success && <p className="text-center">{success}</p>}
+            </div>
+          </section>
+        </div>
+      </div>
     );
   } else {
     const handleClick = () => {
       alert("로그인이 필요합니다");
     };
     return (
-      <>
-        <p className="mx-12 mt-4 text-gray-700 ">{category}</p>
-        <section className="flex flex-col md:flex-row p-4">
-          <img className="w-full px-4 basis-7/12" src={image} alt={title} />
-          <div className="w-full basis-5/12 flex flex-col p-4">
-            <h2 className="text-3xl font-bold py-2">{title}</h2>
-            <p className="text-2xl font-bold py-2 border-b border-gray-400">
-              ${price}
-            </p>
-            <p className="py-4 text-lg">{description}</p>
-            <div className="flex items-center">
-              <label className="font-bold" htmlFor="select">
-                옵션:
-              </label>
-              <select
-                id="select"
-                className="p-2 m-4 flex-1 border-2 outline-none"
-                onChange={handleSelect}
-                value={selected}
-              >
-                {options.map((option, index) => (
-                  <option key={index}>{option}</option>
-                ))}
-              </select>
+      <div className="">
+        <div className="mx-8 md:mx-10">
+          <p className="my-4 text-gray-500">{category}</p>
+          <section className="flex flex-col md:flex-row md:justify-between md:mx-auto">
+            <div className="rounded-xl overflow-hidden ">
+              <img
+                className="w-full basis-7/12 aspect-square"
+                src={image}
+                alt={title}
+              />
             </div>
-            <Button text="장바구니에 추가" onClick={handleClick} />
-          </div>
-        </section>
-      </>
+            <div className="w-full basis-5/12 flex flex-col md:px-8 mt-4 md:mt-0">
+              <p className="text-2xl py-2 mb-2">{title}</p>
+              <p className="text-xl font-bold pb-10 border-b border-gray-300">
+                ${price}
+              </p>
+              <div className="flex flex-col py-8 gap-6 border-b border-gray-300">
+                <div>
+                  <label htmlFor="select">옵션 :</label>
+                  <select
+                    id="select"
+                    className="p-2 ml-2 border-2 outline-none"
+                    onChange={handleSelect}
+                    value={selected}
+                  >
+                    {options.map((option, index) => (
+                      <option key={index}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="">
+                  <Button
+                    text="장바구니에 추가"
+                    onClick={handleClick}
+                    className="w-full py-4 md:w-auto md:px-10"
+                  />
+                </div>
+              </div>
+              <p className="py-4 text-lg ">{description}</p>
+              {success && <p className="text-center">{success}</p>}
+            </div>
+          </section>
+        </div>
+      </div>
     );
   }
 }

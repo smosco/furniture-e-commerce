@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import MyWish from "./pages/MyWish";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <MyCart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/wish",
+        element: (
+          <ProtectedRoute>
+            <MyWish />
           </ProtectedRoute>
         ),
       },
