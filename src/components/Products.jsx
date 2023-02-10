@@ -3,15 +3,20 @@ import { getProducts } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
 
-export default function Products({ filter }) {
+export default function Products({ selected, filter }) {
   const {
     isLoading,
     error,
     data: products,
-  } = useQuery(["products", filter], () => getProducts(filter), {
-    staleTime: 100 * 60,
-  });
+  } = useQuery(
+    ["products", selected, filter],
+    () => getProducts(selected, filter),
+    {
+      staleTime: 100 * 60,
+    }
+  );
 
+  const hasProducts = products && products.length > 0;
   return (
     <>
       {isLoading && <p>Loading...</p>}
@@ -20,6 +25,7 @@ export default function Products({ filter }) {
         {products?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
+        {!hasProducts && <p>상품이 없습니다.</p>}
       </ul>
     </>
   );

@@ -116,19 +116,32 @@ export async function addNewProduct(product, image) {
 //     .catch(console.error);
 // }
 
-//firestore사용
-export async function getProducts(filter) {
+//firestore사용 합쳤다.
+export async function getProducts(selected, filter) {
   let products = [];
 
-  if (!filter) {
+  if (!selected && !filter) {
     const querySnapshot = await getDocs(collection(store, "products"));
     querySnapshot.forEach((doc) => {
       products.push(doc.data());
     });
     return products;
-  } else {
+  } else if (!selected && filter) {
     const q = query(
       collection(store, "products"),
+      where("price", ">", filter[0]),
+      where("price", "<", filter[1])
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      products.push(doc.data());
+    });
+    return products;
+  } else if (selected && filter) {
+    const q = query(
+      collection(store, "products"),
+      where("category", "==", selected),
       where("price", ">", filter[0]),
       where("price", "<", filter[1])
     );
@@ -142,21 +155,21 @@ export async function getProducts(filter) {
 }
 
 //firestore에서 query를 사용해서 카테고리, 필터한 데이터를 가져옴
-export async function getCategoryProducts(selected, filter) {
-  let products = [];
-  const q = query(
-    collection(store, "products"),
-    where("category", "==", selected),
-    where("price", ">", filter[0]),
-    where("price", "<", filter[1])
-  );
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    //console.log(doc.data());
-    products.push(doc.data());
-  });
-  return products;
-}
+// export async function getCategoryProducts(selected, filter) {
+//   let products = [];
+//   const q = query(
+//     collection(store, "products"),
+//     where("category", "==", selected),
+//     where("price", ">", filter[0]),
+//     where("price", "<", filter[1])
+//   );
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     //console.log(doc.data());
+//     products.push(doc.data());
+//   });
+//   return products;
+// }
 
 export async function addOrUpdateCart(userId, product) {
   return set(ref(db, `/cart/${userId}/${product.id}`), product);

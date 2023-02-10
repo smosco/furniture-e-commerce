@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Products from "../components/Products";
-import CategoryProducts from "../components/CategoryProducts";
+//import CategoryProducts from "../components/CategoryProducts";
 import Slider from "@mui/material/Slider";
 
 function valuetext(value) {
@@ -19,7 +19,7 @@ export default function AllProducts() {
     "서랍장",
     "장식장",
   ];
-  const [selected, setSelected] = useState("모든제품");
+  const [selected, setSelected] = useState();
   const [filter, setFilter] = useState([0, 1500]);
 
   const handleChange = (event, newValue, activeThumb) => {
@@ -46,7 +46,11 @@ export default function AllProducts() {
               {categories.map((category) => (
                 <li
                   onClick={() => {
-                    setSelected(category);
+                    if (category === "모든제품") {
+                      setSelected(null);
+                    } else {
+                      setSelected(category);
+                    }
                   }}
                   key={category}
                   className="rounded-2xl bg-gray-200 py-2 px-6 cursor-pointer shrink-0"
@@ -71,10 +75,10 @@ export default function AllProducts() {
             />
           </section>
           <section className="products w-full md:basis-3/4">
-            {selected === "모든제품" ? (
+            {!selected ? (
               <Products filter={filter} />
             ) : (
-              <CategoryProducts selected={selected} filter={filter} />
+              <Products selected={selected} filter={filter} />
             )}
           </section>
         </div>
