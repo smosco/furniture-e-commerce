@@ -7,6 +7,16 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { getDatabase, ref, set, get, remove } from "firebase/database";
+import {
+  getFirestore,
+  setDoc,
+  getDoc,
+  doc,
+  getDocs,
+  collection,
+  where,
+  query,
+} from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 const firebaseConfig = {
@@ -21,6 +31,7 @@ const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const db = getDatabase();
+const store = getFirestore();
 
 //상태변환관찰자가 생겨서 굳이 return할필요가 없어졌다. 비동기 함수 만들필요없다.
 // export async function login() {
@@ -68,9 +79,22 @@ async function adminUser(user) {
     });
 }
 
+//realtime에 저장 query사용불가
+// export async function addNewProduct(product, image) {
+//   const id = uuidv4();
+//   return set(ref(db, `products/${id}`), {
+//     ...product,
+//     id,
+//     price: parseInt(product.price),
+//     image,
+//     options: product.options.split(","),
+//   });
+// }
+
+//store에 저장 query사용=> filter사용
 export async function addNewProduct(product, image) {
   const id = uuidv4();
-  return set(ref(db, `products/${id}`), {
+  await setDoc(doc(store, "products", id), {
     ...product,
     id,
     price: parseInt(product.price),
@@ -79,16 +103,59 @@ export async function addNewProduct(product, image) {
   });
 }
 
-export async function getProducts() {
-  return get(ref(db, "products"))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const products = Object.values(snapshot.val());
-        return products;
-      }
-      return [];
-    })
-    .catch(console.error);
+//realtime 사용
+// export async function getProducts() {
+//   return get(ref(db, "products"))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         const products = Object.values(snapshot.val());
+//         return products;
+//       }
+//       return [];
+//     })
+//     .catch(console.error);
+// }
+
+//firestore사용
+export async function getProducts(filter) {
+  let products = [];
+
+  if (!filter) {
+    const querySnapshot = await getDocs(collection(store, "products"));
+    querySnapshot.forEach((doc) => {
+      products.push(doc.data());
+    });
+    return products;
+  } else {
+    const q = query(
+      collection(store, "products"),
+      where("price", ">", filter[0]),
+      where("price", "<", filter[1])
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      //console.log(doc.data());
+      products.push(doc.data());
+    });
+    return products;
+  }
+}
+
+//firestore에서 query를 사용해서 카테고리, 필터한 데이터를 가져옴
+export async function getCategoryProducts(selected, filter) {
+  let products = [];
+  const q = query(
+    collection(store, "products"),
+    where("category", "==", selected),
+    where("price", ">", filter[0]),
+    where("price", "<", filter[1])
+  );
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    //console.log(doc.data());
+    products.push(doc.data());
+  });
+  return products;
 }
 
 export async function addOrUpdateCart(userId, product) {
