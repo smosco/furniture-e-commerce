@@ -62,7 +62,7 @@ export default function AllProducts() {
           </div>
         </div> */}
 
-        <div className="filter flex flex-col pt-8 px-6 gap-6 md:flex-row">
+        <div className="filter flex flex-col pt-8 px-6 gap-8 md:flex-row">
           <section className="side flex flex-col gap-8 w-full md:basis-1/4 md:block">
             <div className="category">
               <div className="text-3xl pb-8">
@@ -80,7 +80,8 @@ export default function AllProducts() {
                         }
                       }}
                       key={category}
-                      className="rounded-2xl bg-gray-200 py-2 px-6 cursor-pointer shrink-0"
+                      className="rounded-2xl bg-gray-200 py-2 px-6 cursor-pointer shrink-0//
+                     text-semibold hover:bg-ore-brand hover:text-white transition-all"
                     >
                       {category}
                     </li>
@@ -90,7 +91,7 @@ export default function AllProducts() {
             </div>
             <div className="filter pt-8">
               <p className="text-3xl pb-6">Filter By:</p>
-              <p className="text-xl pb-4">가격</p>
+              <p className="text-xl pb-4">PRICE</p>
               <Slider
                 getAriaLabel={() => "Temperature range"}
                 value={filter}

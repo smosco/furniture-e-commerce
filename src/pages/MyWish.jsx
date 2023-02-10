@@ -22,7 +22,7 @@ export default function MyWish() {
         {!hasWishItems && <p>찜한 상품이 없습니다.</p>}
         {hasWishItems && (
           <>
-            <ul className="border-b border-gray-300 mb-8">
+            <ul className="grid gird-cols-1 md:grid-cols-3 gap-6 mt-8">
               {wishItems.map((wishItem) => (
                 <WishCard key={wishItem.id} wishItem={wishItem} uid={uid} />
               ))}
