@@ -18,14 +18,20 @@ const Slider = () => {
   };
 
   return (
-    <div className="slider w-s h-[calc(100vh - 80px)] relative overflow-hidden">
+    <div className="slider h-[calc(100vh - 80px)] relative overflow-hidden">
       <div
         className="container w-[300vw] h-full flex transition-all"
         style={{ transform: `translateX(-${currentSlide * 100}vw)` }}
       >
-        <img className="w-screen h-full object-cover" src={data[0]} alt="" />
-        <img className="w-screen h-full object-cover" src={data[1]} alt="" />
-        <img className="w-screen h-full object-cover" src={data[2]} alt="" />
+        <div className="w-full h-full">
+          <img className="object-cover" src={data[0]} alt="" />
+        </div>
+        <div className="w-full h-full">
+          <img className="w-full h-full object-cover" src={data[1]} alt="" />
+        </div>
+        <div className="w-full h-full">
+          <img className="w-full h-full object-cover" src={data[2]} alt="" />
+        </div>
       </div>
       <div className="icons flex absolute left-2 right-2 bottom-24 gap-4">
         <div

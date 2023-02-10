@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Products from "../components/Products";
 //import CategoryProducts from "../components/CategoryProducts";
 import Slider from "@mui/material/Slider";
+import Banner from "../components/Banner";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -61,7 +62,7 @@ export default function AllProducts() {
             </ul>
           </div>
         </div> */}
-
+        <Banner />
         <div className="filter flex flex-col pt-8 px-6 gap-8 md:flex-row">
           <section className="side flex flex-col gap-8 w-full md:basis-1/4 md:block">
             <div className="category">

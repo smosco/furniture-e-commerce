@@ -21,11 +21,11 @@ export default function Products({ selected, filter }) {
     <>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
+      {!hasProducts && <p>상품이 없습니다.</p>}
       <ul className="grid grid-cols-1 md:grid-cols-3 lg:gird-cols-4 gap-6">
         {products?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-        {!hasProducts && <p>상품이 없습니다.</p>}
       </ul>
     </>
   );

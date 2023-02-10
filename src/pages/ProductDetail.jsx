@@ -63,13 +63,9 @@ export default function ProductDetail() {
       <div className="">
         <div className="mx-8 md:mx-10">
           <p className="my-4 text-gray-500">{category}</p>
-          <section className="flex flex-col md:flex-row md:justify-between md:mx-auto">
-            <div className="rounded-xl overflow-hidden ">
-              <img
-                className="w-full basis-7/12 aspect-square"
-                src={image}
-                alt={title}
-              />
+          <section className="flex flex-col md:flex-row md:justify-between md:mx-auto gap-8">
+            <div className="rounded-xl basis-7/12 overflow-hidden ">
+              <img className="w-full aspect-square" src={image} alt={title} />
             </div>
             <div className="w-full basis-5/12 flex flex-col md:px-8 mt-4 md:mt-0">
               <p className="text-2xl py-2 mb-2">{title}</p>
