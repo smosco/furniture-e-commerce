@@ -134,7 +134,7 @@ export async function getProducts(selected, filter) {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      console.log(doc.data());
+      //console.log(doc.data());
       products.push(doc.data());
     });
     return products;

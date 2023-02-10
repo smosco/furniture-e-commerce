@@ -37,7 +37,7 @@ export default function AllProducts() {
   return (
     <>
       <div className="main">
-        <div className="category">
+        {/* <div className="category">
           <div className="border-b border-gray-300 text-3xl px-6 py-8 font-light">
             <p>{selected ? selected : "모든제품"}</p>
           </div>
@@ -60,19 +60,51 @@ export default function AllProducts() {
               ))}
             </ul>
           </div>
-        </div>
-        <div className="flex flex-col pt-8 px-6 gap-6 md:flex-row">
-          <section className="filter w-full md:basis-1/4 md:block">
-            <p>FILTER BY:</p>
-            <Slider
-              getAriaLabel={() => "Temperature range"}
-              value={filter}
-              onChange={handleChange}
-              valueLabelDisplay="on"
-              getAriaValueText={valuetext}
-              min={50}
-              max={1300}
-            />
+        </div> */}
+
+        <div className="filter flex flex-col pt-8 px-6 gap-6 md:flex-row">
+          <section className="side flex flex-col gap-8 w-full md:basis-1/4 md:block">
+            <div className="category">
+              <div className="text-3xl pb-8">
+                <p>Categories</p>
+              </div>
+              <div className="mx-auto pb-6 border-b border-gray-300">
+                <ul className="flex flex-col gap-4 overflow-x-auto">
+                  {categories.map((category) => (
+                    <li
+                      onClick={() => {
+                        if (category === "모든제품") {
+                          setSelected(null);
+                        } else {
+                          setSelected(category);
+                        }
+                      }}
+                      key={category}
+                      className="rounded-2xl bg-gray-200 py-2 px-6 cursor-pointer shrink-0"
+                    >
+                      {category}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="filter pt-8">
+              <p className="text-3xl pb-6">Filter By:</p>
+              <p className="text-xl pb-4">가격</p>
+              <Slider
+                getAriaLabel={() => "Temperature range"}
+                value={filter}
+                onChange={handleChange}
+                //valueLabelDisplay="on"
+                getAriaValueText={valuetext}
+                min={50}
+                max={1300}
+              />
+              <div className="flex justify-between items-center">
+                <p>$ {filter[0]}</p>
+                <p>$ {filter[1]}</p>
+              </div>
+            </div>
           </section>
           <section className="products w-full md:basis-3/4">
             {!selected ? (
